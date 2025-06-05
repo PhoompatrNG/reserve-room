@@ -1,18 +1,23 @@
 import './css/App.css';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import Header from './components/Header';
+import Footer from './components/Footer';
 import Home from './room/home';
 import ReserveRoomModal from './room/reserve_room_modal';
-import { BrowserRouter } from 'react-router-dom';
-import Header from './components/Header'; // Import Header
-import Footer from './components/Footer'; // Import Footer
 
 function App() {
   return (
     <div className="flex flex-col min-h-screen">
       <BrowserRouter>
         <Header />
-        <Home />
+        <main className="flex-grow">
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/reserve" element={<ReserveRoomModal />} />
+            {/* เพิ่ม Route อื่น ๆ ที่นี่ */}
+          </Routes>
+        </main>
         <Footer />
-        {/* <ReserveRoomModal /> */}
       </BrowserRouter>
     </div>
   );
