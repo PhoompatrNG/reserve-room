@@ -5,7 +5,10 @@ function ShowTimeline() {
     const rooms = ["Room 1", "Room 2", "Room 3", "Room 4"];
     const hours = Array.from(
         { length: 48 },
-        (_, i) => `${Math.floor(i / 2)}:${i % 2 === 0 ? "00" : "30"}`
+        (_, i) => {
+            const hour = (8 + Math.floor(i / 2)) % 24;
+            return `${hour}:${i % 2 === 0 ? "00" : "30"}`;
+        }
     );
 
     const reservations: Record<string, Record<string, string>> = {
@@ -41,13 +44,13 @@ function ShowTimeline() {
                             <div className="room-name">{room}</div>
                             {hours.map((hour, hourIndex) => {
                                 const isCurrent = hour === currentHour;
-                                const reservationStatus = reservations[room]?.[hour] || "Available";
+                                const reservationStatus = reservations[room]?.[hour] || "";
                                 const isReserved = reservationStatus === "Reserved";
 
                                 return (
                                     <div
                                         key={hourIndex}
-                                        className={`grid-cell ${isCurrent ? "current" : isReserved ? "reserved" : "available"}`}
+                                        className={`grid-cell ${isCurrent ? "current" : isReserved ? "reserved" : ""}`}
                                         title={reservationStatus}
                                         aria-label={`Room ${room}, ${hour}: ${reservationStatus}`}
                                     >
