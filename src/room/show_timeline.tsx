@@ -38,7 +38,7 @@ function ShowTimeline() {
 
     return (
         <div className="container">
-            <h2 className="title">Room Reservation Calendar</h2>
+            <h2 className="title">ห้องประชุม</h2>
             <div className="scroll-container">
                 <div className="grid">
                     <div className="grid-header">Rooms / Time</div>

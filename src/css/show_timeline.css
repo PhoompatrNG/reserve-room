@@ -43,8 +43,10 @@
     text-align: center;
     position: sticky;
     top: 0;
-    left: 0;   /* สำหรับ sticky ซ้ายถ้าจำเป็น */
-    z-index: 50; /* ให้สูงกว่าห้อง */
+    left: 0;
+    /* สำหรับ sticky ซ้ายถ้าจำเป็น */
+    z-index: 50;
+    /* ให้สูงกว่าห้อง */
 }
 
 .grid-cell {
@@ -55,7 +57,8 @@
     background-color: #f9fafb;
     transition: background-color 0.2s;
     word-wrap: break-word;
-    white-space: normal; /* Ensure text wraps properly */
+    white-space: normal;
+    /* Ensure text wraps properly */
 }
 
 .grid-cell.current {
