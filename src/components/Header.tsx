@@ -36,9 +36,9 @@ const Header: React.FC = () => {
                             <div className="hidden sm:ml-6 sm:block">
                                 <div className="flex space-x-4">
                                     <NavLink to="/" label="Home" isActive={currentPath === '/'} />
-                                    {/* <NavLink to="/team" label="Team" isActive={currentPath === '/team'} /> */}
-                                    {/* <NavLink to="/projects" label="Projects" isActive={currentPath === '/projects'} /> */}
-                                    <NavLink to="/calendar" label="Calendar" isActive={currentPath === '/calendar'} />
+                                    <NavLink to="/add-room" label="Add Room" isActive={currentPath === '/add-room'} />
+                                    <NavLink to="/show-timeline" label="Show Timeline" isActive={currentPath === '/show-timeline'} />
+                                    <NavLink to="/reserve-room" label="Reserve Room" isActive={currentPath === '/reserve-room'} />
                                 </div>
                             </div>
                         </div>
