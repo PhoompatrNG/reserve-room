@@ -19,7 +19,8 @@
 }
 
 .scroll-container {
-    overflow-x: auto;
+    overflow-x: auto;   /* เฉพาะแนวนอน */
+    overflow-y: visible;
     position: relative;
     max-width: 100%;
     color: #000;

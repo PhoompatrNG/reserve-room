@@ -23,7 +23,7 @@ const Header: React.FC = () => {
     const currentPath = location.pathname;
 
     return (
-        <header className="sticky top-0 z-51">
+        <header className="sticky top-0 z-999">
             <nav className="bg-gray-800">
                 <div className="mx-auto px-2 sm:px-6 lg:px-8">
                     <div className="relative flex h-16 items-center justify-between">

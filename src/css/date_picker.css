@@ -1,0 +1,28 @@
+.date-picker {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: #000;
+}
+
+.date-picker label {
+    font-weight: 600;
+    font-size: 1.125rem;
+}
+
+.date-picker .react-datepicker-wrapper input {
+    border: 1px solid #d1d5db;
+    border-radius: 0.375rem;
+    padding: 0.5rem;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+    outline: none;
+    transition: box-shadow 0.2s;
+    
+}
+
+.date-picker .react-datepicker-wrapper input:focus {
+    box-shadow: 0 0 0 2px #3b82f6;
+}
+.react-datepicker-popper {
+    z-index: 51 !important;   /* ให้ dropdown calendar ลอยขึ้นสุด */
+}
