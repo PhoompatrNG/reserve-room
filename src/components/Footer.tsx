@@ -1,8 +1,10 @@
 import React from 'react';
 
-const Footer: React.FC = () => (
+const Footer = () => (
     <footer>
-        <p>&copy; 2025 Room Reservation System. All rights reserved.</p>
+        <div className="footer-content text-right p-2 bg-gray-800 text-white">
+            <p>&copy; 2025 Room Reservation System. All rights reserved.</p>
+        </div>
     </footer>
 );
 

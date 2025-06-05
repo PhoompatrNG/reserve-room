@@ -1,17 +1,20 @@
-
-// import reactLogo from './assets/react.svg'
-// import viteLogo from '/vite.svg'
-import './css/App.css'
-import Home from './room/home'
-import ReserveRoomModal from './room/reserve_room_modal'
+import './css/App.css';
+import Home from './room/home';
+import ReserveRoomModal from './room/reserve_room_modal';
 import { BrowserRouter } from 'react-router-dom';
+import Header from './components/Header'; // Import Header
+import Footer from './components/Footer'; // Import Footer
 
 function App() {
   return (
-    <BrowserRouter>
-      <Home />
-      {/* <ReserveRoomModal /> */}
-    </BrowserRouter>
+    <div className="flex flex-col min-h-screen">
+      <BrowserRouter>
+        <Header />
+        <Home />
+        <Footer />
+        {/* <ReserveRoomModal /> */}
+      </BrowserRouter>
+    </div>
   );
 }
 
