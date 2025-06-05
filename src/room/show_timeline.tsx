@@ -11,11 +11,20 @@ function ShowTimeline() {
         }
     );
 
-    const reservations: Record<string, Record<string, string>> = {
-        "Room 1": { "8:00": "Reserved", "12:30": "Available", "18:00": "Reserved" },
-        "Room 2": { "9:30": "Available", "15:00": "Reserved" },
-        "Room 3": { "10:00": "Reserved", "20:30": "Available" },
-        "Room 4": { "11:00": "Available", "22:30": "Reserved" },
+    const reservations: Record<string, Array<{ startTime: string; endTime: string; title: string }>> = {
+        "Room 1": [
+            { startTime: "8:00", endTime: "12:30", title: "Team Meeting" },
+            { startTime: "18:00", endTime: "22:00", title: "Project Discussion" }
+        ],
+        "Room 2": [
+            { startTime: "9:30", endTime: "15:00", title: "Client Presentation" },
+        ],
+        "Room 3": [
+            { startTime: "10:00", endTime: "20:30", title: "Workshop" },
+        ],
+        "Room 4": [
+            { startTime: "11:00", endTime: "22:30", title: "Training Session" },
+        ]
     };
 
     const now = new Date();
@@ -44,13 +53,18 @@ function ShowTimeline() {
                             <div className="room-name">{room}</div>
                             {hours.map((hour, hourIndex) => {
                                 const isCurrent = hour === currentHour;
-                                const reservationStatus = reservations[room]?.[hour] || "";
-                                const isReserved = reservationStatus === "Reserved";
+
+                                const reservation = reservations[room]?.find(res => hour >= res.startTime && hour < res.endTime);
+
+                                const reservationStatus = reservation ? `${reservation.startTime} - ${reservation.endTime}: ${reservation.title}` : "";
+
+                                const isReserved = reservation && reservation.startTime && reservation.endTime;
 
                                 return (
                                     <div
                                         key={hourIndex}
                                         className={`grid-cell ${isCurrent ? "current" : isReserved ? "reserved" : ""}`}
+                                        style={!isCurrent ? (isReserved ? { backgroundColor: "#FFCCCC" } : {}) : {}}
                                         title={reservationStatus}
                                         aria-label={`Room ${room}, ${hour}: ${reservationStatus}`}
                                     >
