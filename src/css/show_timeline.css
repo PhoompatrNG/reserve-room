@@ -54,6 +54,8 @@
     text-align: center;
     background-color: #f9fafb;
     transition: background-color 0.2s;
+    word-wrap: break-word;
+    white-space: normal; /* Ensure text wraps properly */
 }
 
 .grid-cell.current {
@@ -63,6 +65,8 @@
 
 .grid-cell.reserved {
     background-color: #fecaca;
+    text-align: left;
+    border: 1px solid #f87171;
 }
 
 .grid-cell.available {

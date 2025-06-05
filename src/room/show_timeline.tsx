@@ -13,7 +13,7 @@ function ShowTimeline() {
 
     const reservations: Record<string, Array<{ startTime: string; endTime: string; title: string }>> = {
         "Room 1": [
-            { startTime: "8:00", endTime: "12:30", title: "Team Meeting" },
+            { startTime: "9:30", endTime: "15:00", title: "Client Presentation" },
             { startTime: "18:00", endTime: "22:00", title: "Project Discussion" }
         ],
         "Room 2": [
@@ -62,7 +62,6 @@ function ShowTimeline() {
 
                                 // Check if the cell should be merged
                                 const isStartOfReservation = reservation && hour === reservation.startTime;
-                                const isEndOfReservation = reservation && hour === reservation.endTime;
 
                                 // If it's the start of a reservation, render the cell
                                 if (isStartOfReservation) {
