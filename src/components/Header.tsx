@@ -1,20 +1,21 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import '../css/Tailwind.css';
 
-const NavLink: React.FC<{ href: string; label: string; isActive?: boolean }> = ({
-    href,
+const NavLink: React.FC<{ to: string; label: string; isActive?: boolean }> = ({
+    to,
     label,
     isActive,
 }) => (
-    <a
-        href={href}
+    <Link
+        to={to}
         className={`rounded-md px-3 py-2 text-sm font-medium ${
             isActive ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white'
         }`}
         aria-current={isActive ? 'page' : undefined}
     >
         {label}
-    </a>
+    </Link>
 );
 
 const Header: React.FC = () => (
@@ -48,17 +49,14 @@ const Header: React.FC = () => (
                         />
                         <div className="hidden sm:ml-6 sm:block">
                             <div className="flex space-x-4">
-                                <NavLink href="#" label="Dashboard" isActive />
-                                <NavLink href="#" label="Team" />
-                                <NavLink href="#" label="Projects" />
-                                <NavLink href="#" label="Calendar" />
+                                <NavLink to="/dashboard" label="Dashboard" isActive />
+                                <NavLink to="/team" label="Team" />
+                                <NavLink to="/projects" label="Projects" />
+                                <NavLink to="/calendar" label="Calendar" />
                             </div>
                         </div>
                     </div>
-                    <button
-                        type="button"
-                        className="relative rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800 focus:outline-none"
-                    >
+                    <button type="button" className="relative rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800 focus:outline-none">
                         <span className="sr-only">View notifications</span>
                         <svg
                             className="size-6"
