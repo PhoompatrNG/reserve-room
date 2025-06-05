@@ -8,6 +8,7 @@ interface Reservation {
     startTime: string;
     endTime: string;
     title: string;
+    date: string; // Added date property
 }
 
 const ShowTimeline: React.FC = () => {
@@ -17,26 +18,67 @@ const ShowTimeline: React.FC = () => {
         return `${hour.toString().padStart(2, "0")}:${i % 2 === 0 ? "00" : "30"}`;
     });
 
+    // Sample reservation data with date property
     const reservations: Record<string, Array<Reservation>> = {
         "Room 1": [
-            { startTime: "16:00", endTime: "17:00", title: "Team Meeting" },
-            { startTime: "18:00", endTime: "22:00", title: "Project Discussion" },
+            {
+                startTime: "16:00",
+                endTime: "17:00",
+                title: "Team Meeting",
+                date: "2025-06-05"
+            },
+            {
+                startTime: "18:00",
+                endTime: "22:00",
+                title: "Project Discussion",
+                date: "2025-06-05"
+            }
         ],
         "Room 2": [],
         "Room 3": [
-            { startTime: "10:00", endTime: "20:30", title: "Workshop" },
+            {
+                startTime: "10:00",
+                endTime: "20:30",
+                title: "Workshop",
+                date: "2025-06-05"
+            }
         ],
         "Room 4": [
-            { startTime: "11:00", endTime: "22:30", title: "Training Session" },
+            {
+                startTime: "11:00",
+                endTime: "22:30",
+                title: "Training Session",
+                date: "2025-06-05"
+            }
         ],
         "Room 5": [
-            { startTime: "08:00", endTime: "09:00", title: "Morning Meeting" },
-            { startTime: "13:00", endTime: "17:00", title: "Afternoon Workshop" },
+            {
+                startTime: "08:00",
+                endTime: "09:00",
+                title: "Morning Meeting",
+                date: "2025-06-05"
+            },
+            {
+                startTime: "13:00",
+                endTime: "17:00",
+                title: "Afternoon Workshop",
+                date: "2025-06-05"
+            }
         ],
         "Room 6": [
-            { startTime: "09:00", endTime: "11:00", title: "Strategy Session" },
-            { startTime: "14:00", endTime: "18:00", title: "Team Building" },
-        ],
+            {
+                startTime: "09:00",
+                endTime: "11:00",
+                title: "Strategy Session",
+                date: "2025-06-05"
+            },
+            {
+                startTime: "14:00",
+                endTime: "18:00",
+                title: "Team Building",
+                date: "2025-06-05"
+            }
+        ]
     };
 
     const today = new Date();
@@ -48,16 +90,27 @@ const ShowTimeline: React.FC = () => {
     const isToday = selectedDate === today.toISOString().split("T")[0];
 
     return (
-        
         <div className="container">
             <h2 className="title">ห้องประชุม</h2>
-            
+
             <div className="date-picker">
                 <label htmlFor="date-select">เลือกวันที่:</label>
                 <DatePicker
                     selected={new Date(selectedDate)}
-                    onChange={(date) => setSelectedDate(date?.toISOString().split("T")[0] || "")}
+                    onChange={(date) =>
+                        setSelectedDate(date?.toISOString().split("T")[0] || "")
+                    }
                     dateFormat="yyyy-MM-dd"
+                    popperPlacement="bottom-start"
+                    popperModifiers={[
+                        {
+                            name: "preventOverflow",
+                            options: {
+                                boundary: "viewport"
+                            },
+                            fn: (state) => state // Add a simple function implementation for 'fn'
+                        }
+                    ]}
                 />
             </div>
             <br />
@@ -76,9 +129,11 @@ const ShowTimeline: React.FC = () => {
                         );
                     })}
                     {rooms.map((room, roomIndex) => {
-                        const roomReservations = (reservations[room] || []).sort((a, b) =>
-                            a.startTime.localeCompare(b.startTime)
-                        );
+                        // Filter reservations by selectedDate
+                        const roomReservations = (reservations[room] || [])
+                            .filter((res) => res.date === selectedDate)
+                            .sort((a, b) => a.startTime.localeCompare(b.startTime));
+
                         return (
                             <React.Fragment key={roomIndex}>
                                 <div className="room-name">{room}</div>
@@ -110,7 +165,7 @@ const ShowTimeline: React.FC = () => {
                                                 className={`grid-cell ${isCurrent ? "current" : "reserved"}`}
                                                 style={{
                                                     backgroundColor: "#FFCCCC",
-                                                    gridColumnEnd: `span ${mergeCount}`,
+                                                    gridColumnEnd: `span ${mergeCount}`
                                                 }}
                                                 title={reservationStatus}
                                                 aria-label={`Room ${room}, ${hour}: ${reservationStatus}`}
