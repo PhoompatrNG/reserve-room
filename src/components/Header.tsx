@@ -23,7 +23,7 @@ const Header: React.FC = () => {
     const currentPath = location.pathname;
 
     return (
-        <header>
+        <header className="sticky top-0 z-51">
             <nav className="bg-gray-800">
                 <div className="mx-auto px-2 sm:px-6 lg:px-8">
                     <div className="relative flex h-16 items-center justify-between">
@@ -36,9 +36,9 @@ const Header: React.FC = () => {
                             <div className="hidden sm:ml-6 sm:block">
                                 <div className="flex space-x-4">
                                     <NavLink to="/" label="Home" isActive={currentPath === '/'} />
-                                    <NavLink to="/add-room" label="Add Room" isActive={currentPath === '/add-room'} />
+                                    {/* <NavLink to="/add-room" label="Add Room" isActive={currentPath === '/add-room'} /> */}
                                     <NavLink to="/show-timeline" label="Show Timeline" isActive={currentPath === '/show-timeline'} />
-                                    <NavLink to="/reserve-room" label="Reserve Room" isActive={currentPath === '/reserve-room'} />
+                                    {/* <NavLink to="/reserve-room" label="Reserve Room" isActive={currentPath === '/reserve-room'} /> */}
                                 </div>
                             </div>
                         </div>

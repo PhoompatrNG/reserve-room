@@ -1,0 +1,92 @@
+.container {
+    padding: 1.5rem;
+    max-width: 100%;
+    background-color: white;
+    border-radius: 1rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border: 1px solid #e5e7eb;
+    overflow: hidden;
+    /* IMPORTANT: let .scroll-container handle overflow */
+    height: 100vh
+}
+
+.title {
+    font-size: 1.875rem;
+    font-weight: 800;
+    margin-bottom: 1.5rem;
+    text-align: center;
+    color: #1f2937;
+}
+
+.scroll-container {
+    overflow-x: auto;
+    position: relative;
+    max-width: 100%;
+    color: #000;
+    border: 1px solid #d5d5d5;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: 150px repeat(48, minmax(100px, 1fr));
+    min-width: calc(150px + 48 * 100px);
+    position: relative;
+}
+
+.grid-header {
+    background-color: #f9fafb;
+    border-bottom: 1px solid #d1d5db;
+    border-right: 1px solid #d1d5db;
+    padding: 0.75rem;
+    font-weight: 600;
+    color: #374151;
+    text-align: center;
+    position: sticky;
+    top: 0;
+    left: 0;   /* สำหรับ sticky ซ้ายถ้าจำเป็น */
+    z-index: 50; /* ให้สูงกว่าห้อง */
+}
+
+.grid-cell {
+    padding: 0.75rem;
+    border-bottom: 1px solid #d1d5db;
+    border-right: 1px solid #d1d5db;
+    text-align: center;
+    background-color: #f9fafb;
+    transition: background-color 0.2s;
+}
+
+.grid-cell.current {
+    background-color: #bfdbfe;
+    color: white;
+}
+
+.grid-cell.reserved {
+    background-color: #fecaca;
+}
+
+.grid-cell.available {
+    background-color: #f9fafb;
+}
+
+.grid-cell:hover {
+    background-color: #93c5fd;
+}
+
+.room-name {
+    position: sticky;
+    left: 0;
+    z-index: 10;
+    background-color: white;
+    border-bottom: 1px solid #d1d5db;
+    border-right: 1px solid #d1d5db;
+    padding: 0.75rem;
+    font-weight: 700;
+    color: #1f2937;
+    text-align: center;
+    cursor: default;
+}
+
+.room-name:hover {
+    background-color: #f3f4f6;
+}

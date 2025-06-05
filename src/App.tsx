@@ -15,9 +15,9 @@ function App() {
         <main className="flex-grow">
           <Routes>
             <Route path="/" element={<Home />} />
-            <Route path="/add-room" element={<AddRoom />} />
+            {/* <Route path="/add-room" element={<AddRoom />} /> */}
             <Route path="/show-timeline" element={<ShowTimeline />} />
-            <Route path="/reserve-room" element={<ReserveRoom />} />
+            {/* <Route path="/reserve-room" element={<ReserveRoom />} /> */}
             {/* เพิ่ม Route อื่น ๆ ที่นี่ */}
           </Routes>
         </main>
