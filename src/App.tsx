@@ -3,7 +3,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import Home from './room/home';
-import ReserveRoomModal from './room/reserve_room_modal';
+import Calendar from './room/calendar'; // Assuming you have a calendar component in the room directory
 
 function App() {
   return (
@@ -13,7 +13,7 @@ function App() {
         <main className="flex-grow">
           <Routes>
             <Route path="/" element={<Home />} />
-            <Route path="/reserve" element={<ReserveRoomModal />} />
+            <Route path="/calendar" element={<Calendar />} />
             {/* เพิ่ม Route อื่น ๆ ที่นี่ */}
           </Routes>
         </main>
