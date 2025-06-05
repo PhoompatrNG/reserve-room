@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import "../css/show_timeline.css";
 
 function ShowTimeline() {
@@ -60,15 +60,44 @@ function ShowTimeline() {
 
                                 const isReserved = reservation && reservation.startTime && reservation.endTime;
 
+                                // Check if the cell should be merged
+                                const isStartOfReservation = reservation && hour === reservation.startTime;
+                                const isEndOfReservation = reservation && hour === reservation.endTime;
+
+                                // If it's the start of a reservation, render the cell
+                                if (isStartOfReservation) {
+                                    // Calculate how many cells to merge
+                                    let mergeCount = 0;
+                                    for (let i = 0; i < hours.length; i++) {
+                                        if (hours[i] >= reservation.startTime && hours[i] < reservation.endTime) {
+                                            mergeCount++;
+                                        }
+                                    }
+
+                                    return (
+                                        <div
+                                            key={hourIndex}
+                                            className={`grid-cell ${isCurrent ? "current" : "reserved"}`}
+                                            style={{ backgroundColor: "#FFCCCC", gridColumnEnd: `span ${mergeCount}` }}
+                                            title={reservationStatus}
+                                            aria-label={`Room ${room}, ${hour}: ${reservationStatus}`}
+                                        >
+                                            {reservationStatus}
+                                        </div>
+                                    );
+                                }
+
+                                // If it's not the start of a reservation, return an empty cell
+                                if (isReserved) {
+                                    return null;
+                                }
+
                                 return (
                                     <div
                                         key={hourIndex}
-                                        className={`grid-cell ${isCurrent ? "current" : isReserved ? "reserved" : ""}`}
-                                        style={!isCurrent ? (isReserved ? { backgroundColor: "#FFCCCC" } : {}) : {}}
-                                        title={reservationStatus}
-                                        aria-label={`Room ${room}, ${hour}: ${reservationStatus}`}
+                                        className={`grid-cell ${isCurrent ? "current" : ""}`}
                                     >
-                                        {reservationStatus}
+                                        {/* {hour} */}
                                     </div>
                                 );
                             })}
