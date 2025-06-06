@@ -8,6 +8,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import "../css/show_timeline.css";
 import "../css/date_picker.css";
 import useFetchData from "../hooks/useFetchDatas";
+import useNormalizeTime from "../hooks/useNormalizeTime";
 
 // กำหนดโครงสร้างข้อมูล Reservation
 interface Reservation {
@@ -17,13 +18,47 @@ interface Reservation {
     date: string; // วันที่
 }
 
+
+
 // สร้าง Component ShowTimeline
 const ShowTimeline = () => {
-    const roomsData = useFetchData('room');
-    // const reservationsData = useFetchData('room');
+    const normalizeTime = useNormalizeTime();
+
+    const reservationsData = useFetchData('reserve') as unknown as Array<{
+        Room: string;
+        Date: string;
+        "Start Time": string;
+        "End Time": string;
+        Title: string;
+    }>;
+
+    const reservations = reservationsData.reduce(
+        (acc: Record<string, Array<Reservation>>, item) => {
+            const {
+                Room,
+                Date: date,
+                ["Start Time"]: startTime,
+                ["End Time"]: endTime,
+                Title: title
+            } = item;
+
+            if (!acc[Room]) acc[Room] = [];
+
+            acc[Room].push({
+                startTime: normalizeTime(startTime),
+                endTime: normalizeTime(endTime),
+                title: title,
+                date: date
+            });
+
+            return acc;
+        },
+        {}
+    );
+
     // แปลงข้อมูลจาก API
+    const roomsData = useFetchData('room');
     const rooms = roomsData.map((item: any) => item.name);
-    console.log("Rooms fetched:", rooms); // แสดงรายชื่อห้องประชุมในคอนโซล
 
     // สร้างช่วงเวลาในแต่ละวัน
     const hours = Array.from({ length: 48 }, (_, i) => {
@@ -31,68 +66,6 @@ const ShowTimeline = () => {
         return `${hour.toString().padStart(2, "0")}:${i % 2 === 0 ? "00" : "30"}`; // แสดงเวลาในรูปแบบ HH:mm
     });
 
-    // ข้อมูลการจองตัวอย่าง
-    const reservations: Record<string, Array<Reservation>> = {
-        "Room1": [
-            {
-                startTime: "16:00", // เวลาเริ่มต้น
-                endTime: "17:00", // เวลาสิ้นสุด
-                title: "Team Meeting", // ชื่อการจอง
-                date: "2025-06-05" // วันที่
-            },
-            {
-                startTime: "18:00", // เวลาเริ่มต้น
-                endTime: "22:00", // เวลาสิ้นสุด
-                title: "Project Discussion", // ชื่อการจอง
-                date: "2025-06-05" // วันที่
-            }
-        ],
-        "Room2": [],
-        "Room3": [
-            {
-                startTime: "10:00", // เวลาเริ่มต้น
-                endTime: "20:30", // เวลาสิ้นสุด
-                title: "Workshop", // ชื่อการจอง
-                date: "2025-06-05" // วันที่
-            }
-        ],
-        "Room4": [
-            {
-                startTime: "11:00", // เวลาเริ่มต้น
-                endTime: "22:30", // เวลาสิ้นสุด
-                title: "Training Session", // ชื่อการจอง
-                date: "2025-06-05" // วันที่
-            }
-        ],
-        "Room5": [
-            {
-                startTime: "08:00", // เวลาเริ่มต้น
-                endTime: "09:00", // เวลาสิ้นสุด
-                title: "Morning Meeting", // ชื่อการจอง
-                date: "2025-06-05" // วันที่
-            },
-            {
-                startTime: "13:00", // เวลาเริ่มต้น
-                endTime: "17:00", // เวลาสิ้นสุด
-                title: "Afternoon Workshop", // ชื่อการจอง
-                date: "2025-06-05" // วันที่
-            }
-        ],
-        "Room6": [
-            {
-                startTime: "09:00", // เวลาเริ่มต้น
-                endTime: "11:00", // เวลาสิ้นสุด
-                title: "Strategy Session", // ชื่อการจอง
-                date: "2025-06-05" // วันที่
-            },
-            {
-                startTime: "14:00", // เวลาเริ่มต้น
-                endTime: "18:00", // เวลาสิ้นสุด
-                title: "Team Building", // ชื่อการจอง
-                date: "2025-06-05" // วันที่
-            }
-        ]
-    };
 
     // กำหนดวันที่ปัจจุบัน
     const today = new Date();
