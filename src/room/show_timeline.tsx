@@ -7,6 +7,7 @@ import "react-datepicker/dist/react-datepicker.css";
 // นำเข้า CSS สำหรับ ShowTimeline
 import "../css/show_timeline.css";
 import "../css/date_picker.css";
+import useFetchData from "../hooks/useFetchDatas";
 
 // กำหนดโครงสร้างข้อมูล Reservation
 interface Reservation {
@@ -17,9 +18,13 @@ interface Reservation {
 }
 
 // สร้าง Component ShowTimeline
-const ShowTimeline: React.FC = () => {
-    // รายชื่อห้องประชุม
-    const rooms = ["Room 1", "Room 2", "Room 3", "Room 4", "Room 5", "Room 6"];
+const ShowTimeline = () => {
+    const roomsData = useFetchData('room');
+    // const reservationsData = useFetchData('room');
+    // แปลงข้อมูลจาก API
+    const rooms = roomsData.map((item: any) => item.name);
+    console.log("Rooms fetched:", rooms); // แสดงรายชื่อห้องประชุมในคอนโซล
+
     // สร้างช่วงเวลาในแต่ละวัน
     const hours = Array.from({ length: 48 }, (_, i) => {
         const hour = (8 + Math.floor(i / 2)) % 24; // คำนวณชั่วโมง
@@ -28,7 +33,7 @@ const ShowTimeline: React.FC = () => {
 
     // ข้อมูลการจองตัวอย่าง
     const reservations: Record<string, Array<Reservation>> = {
-        "Room 1": [
+        "Room1": [
             {
                 startTime: "16:00", // เวลาเริ่มต้น
                 endTime: "17:00", // เวลาสิ้นสุด
@@ -42,8 +47,8 @@ const ShowTimeline: React.FC = () => {
                 date: "2025-06-05" // วันที่
             }
         ],
-        "Room 2": [],
-        "Room 3": [
+        "Room2": [],
+        "Room3": [
             {
                 startTime: "10:00", // เวลาเริ่มต้น
                 endTime: "20:30", // เวลาสิ้นสุด
@@ -51,7 +56,7 @@ const ShowTimeline: React.FC = () => {
                 date: "2025-06-05" // วันที่
             }
         ],
-        "Room 4": [
+        "Room4": [
             {
                 startTime: "11:00", // เวลาเริ่มต้น
                 endTime: "22:30", // เวลาสิ้นสุด
@@ -59,7 +64,7 @@ const ShowTimeline: React.FC = () => {
                 date: "2025-06-05" // วันที่
             }
         ],
-        "Room 5": [
+        "Room5": [
             {
                 startTime: "08:00", // เวลาเริ่มต้น
                 endTime: "09:00", // เวลาสิ้นสุด
@@ -73,7 +78,7 @@ const ShowTimeline: React.FC = () => {
                 date: "2025-06-05" // วันที่
             }
         ],
-        "Room 6": [
+        "Room6": [
             {
                 startTime: "09:00", // เวลาเริ่มต้น
                 endTime: "11:00", // เวลาสิ้นสุด
