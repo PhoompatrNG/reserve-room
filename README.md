@@ -1,123 +1,125 @@
-# Reserve Room Application
+# แอปพลิเคชันจองห้องพัก
 
-This project is built using **React**, **Vite**, and integrates with **n8n** for automation workflows as well as the **Google Sheets API** for data manipulation.
+![โลโก้ของโครงการ](https://via.placeholder.com/150?text=Reserve+Room)
 
-## Features
+โครงการนี้พัฒนาด้วย **React** และ **Vite** รวมถึงการผสานการทำงานกับ **n8n** เพื่อการจัดการ Workflow และ **Google Sheets API** สำหรับการจัดการข้อมูล
 
-- **React**: A robust JavaScript library for building user interfaces.
-- **Vite**: Lightning-fast development and build tool for modern web applications.
-- **n8n Integration**: Automate workflows and connect to various services.
-- **Google Sheets API**: Fetch, update, and manage data directly from Google Sheets.
+## คุณสมบัติเด่น
 
-## Prerequisites
+- **React**: ไลบรารี JavaScript ที่ทรงพลังสำหรับสร้างอินเทอร์เฟซผู้ใช้
+- **Vite**: เครื่องมือพัฒนาและสร้างแอปพลิเคชันที่รวดเร็ว
+- **n8n Integration**: ระบบ Workflow อัตโนมัติที่สามารถเชื่อมต่อกับบริการต่าง ๆ
+- **Google Sheets API**: จัดการข้อมูล เช่น การดึงข้อมูล การอัปเดต และจัดการข้อมูลโดยตรงจาก Google Sheets
 
-Before you begin, ensure you have the following installed on your system:
+## ข้อกำหนดเบื้องต้น
 
-- **Node.js**: v16 or higher
-- **npm** or **yarn**: Package manager
-- **n8n**: Set up and running
-- **Google Cloud Account**: To enable the Sheets API
+ก่อนเริ่มต้นใช้งาน ให้ตรวจสอบว่ามีการติดตั้งโปรแกรมต่อไปนี้ในระบบของคุณ:
 
-## Getting Started
+- **Node.js**: เวอร์ชัน 16 หรือสูงกว่า
+- **npm** หรือ **yarn**: ตัวจัดการแพ็คเกจ
+- **n8n**: ติดตั้งและพร้อมใช้งาน
+- **Google Cloud Account**: เพื่อเปิดใช้งาน Sheets API
 
-### Clone the Repository
+## การเริ่มต้นใช้งาน
+
+### การดาวน์โหลดโครงการ
 
 ```bash
 git clone https://github.com/PhoompatrNG/reserve-room.git
 cd reserve-room
 ```
 
-### Install Dependencies
+### การติดตั้ง Dependencies
 
 ```bash
 npm install
 ```
 
-Or, if you prefer **yarn**:
+หรือถ้าคุณใช้ **yarn**:
 
 ```bash
 yarn install
 ```
 
-### Set Up Environment Variables
+### การตั้งค่าตัวแปร Environment
 
-Create a `.env` file in the root of the project and add the following:
+สร้างไฟล์ `.env` ในโฟลเดอร์หลักของโครงการและเพิ่มรายละเอียดดังนี้:
 
 ```env
-VITE_GOOGLE_API_KEY=<Your Google API Key>
-VITE_GOOGLE_SHEET_ID=<Your Google Sheet ID>
-N8N_WORKFLOW_URL=<Your n8n Workflow URL>
+VITE_GOOGLE_API_KEY=<Google API Key ของคุณ>
+VITE_GOOGLE_SHEET_ID=<Google Sheet ID ของคุณ>
+N8N_WORKFLOW_URL=<URL ของ Workflow ใน n8n>
 ```
 
-### Run the Development Server
+### การเริ่มต้นเซิร์ฟเวอร์สำหรับการพัฒนา
 
 ```bash
 npm run dev
 ```
 
-Or, if using **yarn**:
+หรือถ้าคุณใช้ **yarn**:
 
 ```bash
 yarn dev
 ```
 
-### Build the Application
+### การสร้างแอปพลิเคชัน
 
 ```bash
 npm run build
 ```
 
-Or, if using **yarn**:
+หรือถ้าคุณใช้ **yarn**:
 
 ```bash
 yarn build
 ```
 
-## Integrating with n8n
+## การผสานการทำงานกับ n8n
 
-n8n is used to automate workflows such as sending notifications, managing reservations, or syncing data with external APIs.
+**n8n** ใช้สำหรับสร้าง Workflow อัตโนมัติเช่น การแจ้งเตือน การจัดการการจอง หรือการซิงค์ข้อมูลกับ API ภายนอก
 
-1. **Set up n8n**: Follow the [n8n setup guide](https://docs.n8n.io/) to configure your instance.
-2. **Create Workflows**: Use n8n's visual interface to create workflows that connect to Google Sheets, email, or other services.
-3. **Link Workflows**: Use the `N8N_WORKFLOW_URL` in your `.env` file to connect the application to your n8n workflows.
+1. **ตั้งค่า n8n**: อ่านคู่มือการตั้งค่าจาก [เอกสาร n8n](https://docs.n8n.io/)
+2. **สร้าง Workflow**: ใช้ UI ของ n8n เพื่อสร้าง Workflow ที่เชื่อมต่อกับ Google Sheets, ระบบอีเมล หรือบริการอื่น ๆ
+3. **เชื่อม Workflow**: ใช้ `N8N_WORKFLOW_URL` ในไฟล์ `.env` เพื่อเชื่อมต่อแอปพลิเคชันกับ Workflow ที่สร้าง
 
-## Using Google Sheets API
+## การใช้งาน Google Sheets API
 
-This project uses the Google Sheets API for managing data such as reservations, availability, or user information.
+โครงการนี้ใช้ Google Sheets API ในการจัดการข้อมูล เช่น การจองห้องพัก การตรวจสอบความพร้อมใช้งาน หรือข้อมูลผู้ใช้
 
-1. **Enable the API**: Go to the [Google Cloud Console](https://console.cloud.google.com/) and enable the Sheets API.
-2. **Generate API Key**: Create an API key and add it to your `.env` file.
-3. **Specify Sheet ID**: Obtain the sheet ID from your Google Sheet's URL and add it to your `.env` file.
+1. **เปิดใช้งาน API**: ไปที่ [Google Cloud Console](https://console.cloud.google.com/) และเปิดใช้งาน Sheets API
+2. **สร้าง API Key**: สร้าง API Key และเพิ่มลงในไฟล์ `.env`
+3. **กำหนด Sheet ID**: ได้รับ Sheet ID จาก URL ของ Google Sheet และเพิ่มลงในไฟล์ `.env`
 
-## Project Structure
+## โครงสร้างโครงการ
 
 ```
 reserve-room/
-├── public/              # Static assets
-├── src/                 # Source code
-│   ├── components/      # React components
-│   ├── pages/           # React pages
-│   ├── services/        # API services (e.g., Google Sheets API, n8n integration)
-│   ├── styles/          # CSS files
-│   └── utils/           # Utility functions
-├── .env                 # Environment variables
-├── package.json         # Project metadata
-├── vite.config.ts       # Vite configuration
-└── README.md            # Project documentation
+├── public/              # ไฟล์ Static
+├── src/                 # โค้ดต้นฉบับ
+│   ├── components/      # React Components
+│   ├── pages/           # React Pages
+│   ├── services/        # API Services (Google Sheets API, n8n)
+│   ├── styles/          # ไฟล์ CSS
+│   └── utils/           # ฟังก์ชัน Utility
+├── .env                 # ตัวแปร Environment
+├── package.json         # Metadata ของโครงการ
+├── vite.config.ts       # การตั้งค่า Vite
+└── README.md            # เอกสารโครงการ
 ```
 
-## Contributing
+## การมีส่วนร่วม
 
-We welcome contributions to improve this project. Please follow these steps:
+เรายินดีต้อนรับการมีส่วนร่วมในโครงการนี้ โปรดทำตามขั้นตอนดังนี้:
 
-1. Fork the repository.
-2. Create a new branch for your feature or fix.
-3. Submit a pull request detailing your changes.
+1. Fork รีโพซิทอรี
+2. สร้าง Branch ใหม่สำหรับฟีเจอร์หรือการแก้ไขของคุณ
+3. ส่ง Pull Request พร้อมรายละเอียดการเปลี่ยนแปลงของคุณ
 
-## License
+## ใบอนุญาต
 
-This project is licensed under the MIT License.
+โครงการนี้ได้รับอนุญาตภายใต้ MIT License
 
-## Contact
+## ติดต่อ
 
-For any questions or support, please contact [PhoompatrNG](https://github.com/PhoompatrNG).
+สำหรับคำถามหรือการสนับสนุน กรุณาติดต่อ [PhoompatrNG](https://github.com/PhoompatrNG)
