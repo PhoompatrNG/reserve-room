@@ -1,0 +1,297 @@
+{
+  "name": "ReverveRoom",
+  "nodes": [
+    {
+      "parameters": {
+        "path": "10d58f0e-067b-4449-b95f-9d3c299b942a",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        -400,
+        -40
+      ],
+      "id": "31898f29-fadf-417c-9f66-a42df7e9638c",
+      "name": "Webhook",
+      "webhookId": "10d58f0e-067b-4449-b95f-9d3c299b942a"
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.query.gets }}",
+                    "rightValue": "room",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    },
+                    "id": "adbaed1e-8cba-4d4d-9160-0bd9e8934ef0"
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "room"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "bfd02ac3-52ca-4f5b-9288-dbb1c37be87d",
+                    "leftValue": "={{ $json.query.gets }}",
+                    "rightValue": "reserve",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "reserve"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.2,
+      "position": [
+        -180,
+        -40
+      ],
+      "id": "99db0239-6016-435e-8cc5-db75e2554719",
+      "name": "Switch1"
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1R1Hcf8Au0PmKCfPBJ6SRRNBY0ndaSrfllyRTv2670IA",
+          "mode": "list",
+          "cachedResultName": "Reserve Room",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1R1Hcf8Au0PmKCfPBJ6SRRNBY0ndaSrfllyRTv2670IA/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "room",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1R1Hcf8Au0PmKCfPBJ6SRRNBY0ndaSrfllyRTv2670IA/edit#gid=0"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.6,
+      "position": [
+        40,
+        -240
+      ],
+      "id": "483d6bcb-95d1-4cb7-92f9-4d8ee78aae85",
+      "name": "Google Sheets",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "jvUtIXr4RXR0gPqO",
+          "name": "Google Sheets account"
+        }
+      },
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ $input.all().map(item => item.json) }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.3,
+      "position": [
+        260,
+        -340
+      ],
+      "id": "fc6cbc02-8d59-44cd-a8f9-cdf0563a4925",
+      "name": "Respond to Webhook",
+      "alwaysOutputData": true
+    },
+    {
+      "parameters": {
+        "errorMessage": "เกิดข้อผิดพลาด"
+      },
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        260,
+        -140
+      ],
+      "id": "bc3726f6-e6e9-4ea1-9690-b620fa6203c8",
+      "name": "Stop and Error1"
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1R1Hcf8Au0PmKCfPBJ6SRRNBY0ndaSrfllyRTv2670IA",
+          "mode": "list",
+          "cachedResultName": "Reserve Room",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1R1Hcf8Au0PmKCfPBJ6SRRNBY0ndaSrfllyRTv2670IA/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 1016177878,
+          "mode": "list",
+          "cachedResultName": "reserve_date",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1R1Hcf8Au0PmKCfPBJ6SRRNBY0ndaSrfllyRTv2670IA/edit#gid=1016177878"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.6,
+      "position": [
+        40,
+        160
+      ],
+      "id": "56c83090-188a-4ab9-b85b-050fd8bc7037",
+      "name": "Google Sheets1",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "jvUtIXr4RXR0gPqO",
+          "name": "Google Sheets account"
+        }
+      },
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ $input.all().map(item => item.json) }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.3,
+      "position": [
+        260,
+        60
+      ],
+      "id": "aecc284c-3401-48b1-9fcf-de75cf94e1a7",
+      "name": "Respond to Webhook1",
+      "alwaysOutputData": true
+    },
+    {
+      "parameters": {
+        "errorMessage": "เกิดข้อผิดพลาด"
+      },
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        260,
+        260
+      ],
+      "id": "5277769e-d49d-4648-9cf0-48f0d002aeee",
+      "name": "Stop and Error"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Switch1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Switch1": {
+      "main": [
+        [
+          {
+            "node": "Google Sheets",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Google Sheets1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Sheets": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Stop and Error1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Respond to Webhook": {
+      "main": [
+        []
+      ]
+    },
+    "Google Sheets1": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook1",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Stop and Error",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "cb953e01-eac3-4ce6-987e-f289ebaf524f",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "aef41be2fb736eaa2575ad7c2b978fdb4de2a241865e50a3410f70a221eec67a"
+  },
+  "id": "o5TWGkn7oVQKBu8T",
+  "tags": []
+}
