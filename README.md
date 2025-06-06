@@ -1,54 +1,123 @@
-# React + TypeScript + Vite
+# Reserve Room Application
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This project is built using **React**, **Vite**, and integrates with **n8n** for automation workflows as well as the **Google Sheets API** for data manipulation.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- **React**: A robust JavaScript library for building user interfaces.
+- **Vite**: Lightning-fast development and build tool for modern web applications.
+- **n8n Integration**: Automate workflows and connect to various services.
+- **Google Sheets API**: Fetch, update, and manage data directly from Google Sheets.
 
-## Expanding the ESLint configuration
+## Prerequisites
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+Before you begin, ensure you have the following installed on your system:
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+- **Node.js**: v16 or higher
+- **npm** or **yarn**: Package manager
+- **n8n**: Set up and running
+- **Google Cloud Account**: To enable the Sheets API
+
+## Getting Started
+
+### Clone the Repository
+
+```bash
+git clone https://github.com/PhoompatrNG/reserve-room.git
+cd reserve-room
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+### Install Dependencies
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
+```bash
+npm install
 ```
+
+Or, if you prefer **yarn**:
+
+```bash
+yarn install
+```
+
+### Set Up Environment Variables
+
+Create a `.env` file in the root of the project and add the following:
+
+```env
+VITE_GOOGLE_API_KEY=<Your Google API Key>
+VITE_GOOGLE_SHEET_ID=<Your Google Sheet ID>
+N8N_WORKFLOW_URL=<Your n8n Workflow URL>
+```
+
+### Run the Development Server
+
+```bash
+npm run dev
+```
+
+Or, if using **yarn**:
+
+```bash
+yarn dev
+```
+
+### Build the Application
+
+```bash
+npm run build
+```
+
+Or, if using **yarn**:
+
+```bash
+yarn build
+```
+
+## Integrating with n8n
+
+n8n is used to automate workflows such as sending notifications, managing reservations, or syncing data with external APIs.
+
+1. **Set up n8n**: Follow the [n8n setup guide](https://docs.n8n.io/) to configure your instance.
+2. **Create Workflows**: Use n8n's visual interface to create workflows that connect to Google Sheets, email, or other services.
+3. **Link Workflows**: Use the `N8N_WORKFLOW_URL` in your `.env` file to connect the application to your n8n workflows.
+
+## Using Google Sheets API
+
+This project uses the Google Sheets API for managing data such as reservations, availability, or user information.
+
+1. **Enable the API**: Go to the [Google Cloud Console](https://console.cloud.google.com/) and enable the Sheets API.
+2. **Generate API Key**: Create an API key and add it to your `.env` file.
+3. **Specify Sheet ID**: Obtain the sheet ID from your Google Sheet's URL and add it to your `.env` file.
+
+## Project Structure
+
+```
+reserve-room/
+├── public/              # Static assets
+├── src/                 # Source code
+│   ├── components/      # React components
+│   ├── pages/           # React pages
+│   ├── services/        # API services (e.g., Google Sheets API, n8n integration)
+│   ├── styles/          # CSS files
+│   └── utils/           # Utility functions
+├── .env                 # Environment variables
+├── package.json         # Project metadata
+├── vite.config.ts       # Vite configuration
+└── README.md            # Project documentation
+```
+
+## Contributing
+
+We welcome contributions to improve this project. Please follow these steps:
+
+1. Fork the repository.
+2. Create a new branch for your feature or fix.
+3. Submit a pull request detailing your changes.
+
+## License
+
+This project is licensed under the MIT License.
+
+## Contact
+
+For any questions or support, please contact [PhoompatrNG](https://github.com/PhoompatrNG).
