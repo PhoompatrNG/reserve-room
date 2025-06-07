@@ -1,8 +1,25 @@
-# แอปพลิเคชันจองห้องพัก
+# RESERVE-ROOM
 
-![โลโก้ของโครงการ](https://via.placeholder.com/150?text=Reserve+Room)
+Streamline your room bookings with effortless efficiency.
 
-โครงการนี้พัฒนาด้วย **React**, **Vite**, และ **TypeScript** รวมถึงการผสานการทำงานกับ **n8n** เพื่อการจัดการ Workflow และ **Google Sheets API** สำหรับการจัดการข้อมูล
+[![Last Commit](https://img.shields.io/github/last-commit/username/repo-name?style=flat-square)](https://github.com/username/repo-name/commits/main)
+[![TypeScript](https://img.shields.io/badge/TypeScript-54.6%25-blue?style=flat-square)](https://www.typescriptlang.org/)
+[![Languages](https://img.shields.io/github/languages/count/username/repo-name?style=flat-square)](https://github.com/username/repo-name/search?l=)
+[![Top Language](https://img.shields.io/github/languages/top/username/repo-name?style=flat-square)](https://github.com/username/repo-name/search?l=typescript)
+
+
+Built with the tools and technologies:
+
+<p align="center">
+  <img src="https://img.shields.io/badge/JSON-000000?style=flat-square&logo=json&logoColor=white" alt="JSON">
+  <img src="https://img.shields.io/badge/Markdown-000000?style=flat-square&logo=markdown&logoColor=white" alt="Markdown">
+  <img src="https://img.shields.io/badge/npm-CB3837?style=flat-square&logo=npm&logoColor=white" alt="npm">
+  <img src="https://img.shields.io/badge/JavaScript-F7DF1E?style=flat-square&logo=javascript&logoColor=black" alt="JavaScript">
+  <img src="https://img.shields.io/badge/React-61DAFB?style=flat-square&logo=react&logoColor=black" alt="React">
+  <img src="https://img.shields.io/badge/TypeScript-3178C6?style=flat-square&logo=typescript&logoColor=white" alt="TypeScript">
+  <img src="https://img.shields.io/badge/Vite-646CFF?style=flat-square&logo=vite&logoColor=white" alt="Vite">
+  <img src="https://img.shields.io/badge/ESLint-4B32C3?style=flat-square&logo=eslint&logoColor=white" alt="ESLint">
+</p>
 
 ## คุณสมบัติเด่น
 
