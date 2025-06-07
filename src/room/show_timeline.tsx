@@ -18,8 +18,6 @@ interface Reservation {
     date: string; // วันที่
 }
 
-
-
 // สร้าง Component ShowTimeline
 const ShowTimeline = () => {
     const normalizeTime = useNormalizeTime();

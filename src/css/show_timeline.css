@@ -1,100 +1,287 @@
+/* show_timeline.css */
+/* กำหนดสไตล์คอนเทนเนอร์หลัก */
 .container {
-    padding: 1.5rem;
-    max-width: 100%;
-    background-color: white;
-    border-radius: 1rem;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    border: 1px solid #e5e7eb;
-    overflow: hidden;
-    /* IMPORTANT: let .scroll-container handle overflow */
-    height: 100vh
+    padding: 1.5rem; /* ระยะห่างภายใน */
+    max-width: 100%; /* ความกว้างสูงสุด 100% */
+    background-color: white; /* สีพื้นหลังขาว */
+    border-radius: 1rem; /* มุมโค้งมน */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05); /* เงาอ่อนๆ */
+    border: 1px solid #e0e0e0; /* ขอบสีเทาอ่อน */
+    overflow: hidden; /* ซ่อนเนื้อหาที่ล้น */
+    height: 100vh; /* ความสูงเต็ม viewport height (อาจปรับได้ตามความเหมาะสม) */
+    font-family: 'Inter', sans-serif; /* ใช้ฟอนต์ Inter เพื่อความทันสมัย */
 }
 
+/* กำหนดสไตล์หัวเรื่อง */
 .title {
-    font-size: 1.875rem;
-    font-weight: 800;
-    margin-bottom: 1.5rem;
-    text-align: center;
-    color: #1f2937;
+    font-size: 2.25rem; /* ขนาดตัวอักษรใหญ่ขึ้น */
+    font-weight: 800; /* ตัวหนามาก */
+    margin-bottom: 2rem; /* ระยะห่างด้านล่าง */
+    text-align: center; /* จัดกึ่งกลาง */
+    color: #1a202c; /* สีข้อความเกือบดำ */
+    letter-spacing: -0.025em; /* ระยะห่างระหว่างตัวอักษรเล็กน้อย */
 }
 
+/* กำหนดสไตล์ส่วนเลือกวันที่ */
+.date-picker {
+    display: flex; /* ใช้ flexbox */
+    align-items: center; /* จัดแนวตั้งกึ่งกลาง */
+    justify-content: center; /* จัดแนวนอนกึ่งกลาง */
+    margin-bottom: 2rem; /* ระยะห่างด้านล่าง */
+}
+
+.date-picker label {
+    margin-right: 0.75rem; /* ระยะห่างด้านขวา */
+    font-size: 1rem; /* ขนาดตัวอักษร */
+    color: #4a5568; /* สีข้อความเทา */
+    font-weight: 600; /* ตัวหนา */
+}
+
+/* กำหนดสไตล์ส่วนเลื่อนตาราง */
 .scroll-container {
-    overflow-x: auto;   /* เฉพาะแนวนอน */
-    overflow-y: visible;
-    position: relative;
-    max-width: 100%;
-    color: #000;
-    border: 1px solid #d5d5d5;
+    overflow-x: auto; /* เปิดใช้งานการเลื่อนแนวนอน */
+    overflow-y: visible; /* ให้เนื้อหาแนวตั้งมองเห็นได้ (ปรับได้หากต้องการการเลื่อนแนวตั้ง) */
+    position: relative; /* ตำแหน่งสัมพันธ์ */
+    max-width: 100%; /* ความกว้างสูงสุด */
+    color: #334155; /* สีข้อความ */
+    border: 1px solid #d1d5db; /* ขอบ */
+    border-radius: 0.5rem; /* มุมโค้งมนสำหรับตาราง */
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05); /* เงาเล็กน้อยสำหรับตาราง */
 }
 
+/* กำหนดสไตล์ตารางหลัก */
 .grid {
-    display: grid;
-    grid-template-columns: 150px repeat(48, minmax(100px, 1fr));
-    min-width: calc(150px + 48 * 100px);
-    position: relative;
+    display: grid; /* ใช้ CSS Grid */
+    grid-template-columns: 150px repeat(48, minmax(100px, 1fr)); /* คอลัมน์แรก 150px ที่เหลือ 48 คอลัมน์ min 100px */
+    min-width: calc(150px + 48 * 100px); /* ความกว้างขั้นต่ำของตาราง */
+    position: relative; /* ตำแหน่งสัมพันธ์ */
+    border-collapse: collapse; /* สำหรับขอบที่สะอาดขึ้น */
 }
 
+/* กำหนดสไตล์หัวตาราง (Rooms / Time) */
 .grid-header {
-    background-color: #f9fafb;
-    border-bottom: 1px solid #d1d5db;
-    border-right: 1px solid #d1d5db;
-    padding: 0.75rem;
-    font-weight: 600;
-    color: #374151;
-    text-align: center;
-    position: sticky;
-    top: 0;
-    left: 0;
-    /* สำหรับ sticky ซ้ายถ้าจำเป็น */
-    z-index: 50;
-    /* ให้สูงกว่าห้อง */
+    background-color: #e2e8f0; /* สีพื้นหลังฟ้าอมเทาอ่อน */
+    border-bottom: 1px solid #cbd5e0; /* ขอบด้านล่างสีเทา */
+    border-right: 1px solid #cbd5e0; /* ขอบด้านขวาสีเทา */
+    padding: 1rem; /* ระยะห่างภายใน */
+    font-weight: 700; /* ตัวหนา */
+    color: #2d3748; /* สีข้อความ */
+    text-align: center; /* จัดกึ่งกลาง */
+    position: sticky; /* ตำแหน่งเหนียว (ติดด้านบน) */
+    top: 0; /* ติดด้านบน */
+    left: 0; /* ติดด้านซ้าย */
+    z-index: 50; /* Z-index สูงกว่าห้อง */
+    white-space: nowrap; /* ป้องกันข้อความขึ้นบรรทัดใหม่ */
+    border-top-left-radius: 0.5rem; /* มุมโค้งมนด้านบนซ้าย */
 }
 
+/* ลบขอบขวาสำหรับเซลล์หัวข้อชั่วโมงสุดท้าย */
+.grid-header:nth-child(49) {
+    border-right: none;
+    border-top-right-radius: 0.5rem; /* มุมโค้งมนด้านบนขวา */
+}
+
+/* กำหนดสไตล์เซลล์ตารางทั่วไป (เวลา) */
 .grid-cell {
-    padding: 0.75rem;
-    border-bottom: 1px solid #d1d5db;
-    border-right: 1px solid #d1d5db;
-    text-align: center;
-    background-color: #f9fafb;
-    transition: background-color 0.2s;
-    word-wrap: break-word;
-    white-space: normal;
-    /* Ensure text wraps properly */
+    padding: 0.75rem; /* ระยะห่างภายใน */
+    border-bottom: 1px solid #e2e8f0; /* ขอบด้านล่าง */
+    border-right: 1px solid #e2e8f0; /* ขอบด้านขวา */
+    text-align: center; /* จัดกึ่งกลาง */
+    background-color: #ffffff; /* สีพื้นหลังขาว */
+    transition: background-color 0.2s ease-in-out; /* การเปลี่ยนสีพื้นหลังอย่างราบรื่น */
+    word-wrap: break-word; /* ให้ข้อความขึ้นบรรทัดใหม่ */
+    white-space: normal; /* ปกติ */
+    font-size: 0.875rem; /* ขนาดตัวอักษรเล็กน้อย */
+    color: #4a5568; /* สีข้อความเริ่มต้น */
 }
 
+/* ลบขอบขวาสำหรับเซลล์สุดท้ายในแต่ละแถว (ชั่วโมงสุดท้าย) */
+.grid-cell:nth-child(48n + 2), /* For cells in the hour columns, after the room name column */
+.grid-cell:nth-child(48n + 49) { /* And for the last hour cell in each row */
+    border-right: none;
+}
+
+/* กำหนดสไตล์เซลล์เวลาปัจจุบัน */
 .grid-cell.current {
-    background-color: #bfdbfe;
-    color: white;
+    background-color: #DBEAFE; /* สีฟ้าอ่อน */
+    color: #2563eb; /* สีน้ำเงินเข้ม */
+    font-weight: 600; /* ตัวหนา */
+    position: relative; /* สำหรับเส้นเวลาปัจจุบัน */
 }
 
+
+/* กำหนดสไตล์เซลล์ที่ถูกจอง */
 .grid-cell.reserved {
-    background-color: #fecaca;
-    text-align: left;
-    border: 1px solid #f87171;
+    background-color: #FEE2E2; /* สีแดงอ่อน */
+    text-align: center; /* จัดกึ่งกลางข้อความ */
+    border: 1px solid #FCA5A5; /* ขอบสีแดงเข้มขึ้น */
+    color: #B91C1C; /* สีข้อความแดงเข้ม */
+    font-weight: 500; /* ตัวหนาปานกลาง */
+    display: flex; /* ใช้ flexbox */
+    align-items: center; /* จัดแนวตั้งกึ่งกลาง */
+    justify-content: center; /* จัดแนวนอนกึ่งกลาง */
+    overflow: hidden; /* ซ่อนข้อความที่ล้น */
+    white-space: nowrap; /* ป้องกันข้อความขึ้นบรรทัดใหม่ในเซลล์ที่รวม */
+    text-overflow: ellipsis; /* เพิ่มจุดสามจุดหากข้อความยาว */
+    border-radius: 0.25rem; /* มุมโค้งมนเล็กน้อยสำหรับบล็อกที่จอง */
+    margin: 2px; /* ระยะห่างเล็กน้อยเพื่อแยกบล็อกที่รวม */
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.08); /* เงาเล็กน้อย */
 }
 
+/* กำหนดสไตล์เซลล์ที่ว่าง (หากมี class .available) */
 .grid-cell.available {
-    background-color: #f9fafb;
+    background-color: #ffffff; /* พื้นหลังขาว */
 }
 
-.grid-cell:hover {
-    background-color: #93c5fd;
+/* กำหนดสไตล์เมื่อนำเมาส์ไปชี้ (ยกเว้นเซลล์ที่จอง) */
+.grid-cell:not(.reserved):hover {
+    background-color: #e0f2fe; /* สีฟ้าอ่อนเมื่อโฮเวอร์ */
+    cursor: pointer; /* เปลี่ยนเคอร์เซอร์เป็นมือ */
 }
 
+/* กำหนดสไตล์ชื่อห้อง */
 .room-name {
-    position: sticky;
-    left: 0;
-    z-index: 10;
-    background-color: white;
-    border-bottom: 1px solid #d1d5db;
-    border-right: 1px solid #d1d5db;
-    padding: 0.75rem;
-    font-weight: 700;
-    color: #1f2937;
-    text-align: center;
-    cursor: default;
+    position: sticky; /* ตำแหน่งเหนียว */
+    left: 0; /* ติดด้านซ้าย */
+    z-index: 10; /* Z-index */
+    background-color: #f0f4f8; /* สีพื้นหลังฟ้าอมเทาเล็กน้อย */
+    border-bottom: 1px solid #cbd5e0; /* ขอบด้านล่าง */
+    border-right: 1px solid #cbd5e0; /* ขอบด้านขวา */
+    padding: 1rem; /* ระยะห่างภายใน */
+    font-weight: 700; /* ตัวหนา */
+    color: #2d3748; /* สีข้อความ */
+    text-align: center; /* จัดกึ่งกลาง */
+    cursor: default; /* เคอร์เซอร์เริ่มต้น */
+    white-space: nowrap; /* ป้องกันข้อความขึ้นบรรทัดใหม่ */
+    /* border-top-left-radius: 0.5rem; */ /* มุมโค้งมนด้านบนซ้าย (จะถูกทับด้วย grid-header) */
 }
 
+/* สไตล์เมื่อนำเมาส์ไปชี้ที่ชื่อห้อง */
 .room-name:hover {
-    background-color: #f3f4f6;
+    background-color: #e2e8f0; /* สีพื้นหลังฟ้าอมเทาอ่อนลงเมื่อโฮเวอร์ */
+}
+
+/* date_picker.css */
+/* สไตล์สำหรับช่อง input ของ DatePicker */
+.react-datepicker__input-container input {
+    padding: 0.75rem 1rem; /* ระยะห่างภายใน */
+    border: 1px solid #d1d5db; /* ขอบ */
+    border-radius: 0.5rem; /* มุมโค้งมน */
+    font-size: 1rem; /* ขนาดตัวอักษร */
+    color: #374151; /* สีข้อความ */
+    outline: none; /* ลบเส้นกรอบเมื่อโฟกัส */
+    transition: all 0.2s ease-in-out; /* การเปลี่ยนผ่านทั้งหมดอย่างราบรื่น */
+    width: 150px; /* ความกว้างคงที่ */
+    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.05); /* เงาภายใน */
+}
+
+.react-datepicker__input-container input:focus {
+    border-color: #6366f1; /* สีขอบเมื่อโฟกัส */
+    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2); /* เงาโฟกัส */
+}
+
+/* สไตล์สำหรับคอนเทนเนอร์ปฏิทิน DatePicker */
+.react-datepicker {
+    font-family: 'Inter', sans-serif; /* ใช้ฟอนต์ Inter */
+    border: 1px solid #e5e7eb; /* ขอบ */
+    border-radius: 0.75rem; /* มุมโค้งมน */
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05); /* เงา */
+    overflow: hidden; /* ซ่อนเนื้อหาที่ล้นเพื่อให้มุมโค้งมนทำงาน */
+}
+
+/* หัวปฏิทิน (เดือน/ปี) */
+.react-datepicker__header {
+    background-color: #6366f1; /* สีพื้นหลังม่วงน้ำเงิน */
+    padding-top: 1rem; /* ระยะห่างด้านบน */
+    border-bottom: none; /* ลบขอบด้านล่างเริ่มต้น */
+    border-top-left-radius: 0.75rem;
+    border-top-right-radius: 0.75rem;
+}
+
+.react-datepicker__current-month,
+.react-datepicker__day-name {
+    color: white; /* สีข้อความขาว */
+    font-weight: 600; /* ตัวหนา */
+}
+
+/* ชื่อวัน (จ, อ, เป็นต้น) */
+.react-datepicker__day-name {
+    color: #cbd5e0; /* สีเทาอ่อน */
+    font-size: 0.875rem; /* ขนาดตัวอักษร */
+}
+
+/* วันที่ในปฏิทิน */
+.react-datepicker__day {
+    color: #374151; /* สีเทาเข้มสำหรับวันปกติ */
+    width: 2.25rem; /* ขนาดวัน */
+    height: 2.25rem;
+    line-height: 2.25rem; /* จัดกึ่งกลางข้อความแนวตั้ง */
+    margin: 0.125rem; /* ระยะห่างระหว่างวัน */
+    border-radius: 0.375rem; /* มุมโค้งมนเล็กน้อย */
+    transition: background-color 0.2s, color 0.2s; /* การเปลี่ยนสีอย่างราบรื่น */
+}
+
+/* เอฟเฟกต์โฮเวอร์สำหรับวัน */
+.react-datepicker__day:hover {
+    background-color: #e0e7ff; /* สีฟ้าอ่อนเมื่อโฮเวอร์ */
+    color: #374151;
+}
+
+/* วันที่ที่เลือก */
+.react-datepicker__day--selected,
+.react-datepicker__day--keyboard-selected {
+    background-color: #4f46e5; /* สีม่วงน้ำเงินเข้มสำหรับวันที่เลือก */
+    color: white; /* สีข้อความขาว */
+    font-weight: 700; /* ตัวหนามาก */
+}
+
+/* วันนี้ */
+.react-datepicker__day--today {
+    background-color: #eff6ff; /* สีฟ้าอ่อนมากสำหรับวันนี้ */
+    color: #3b82f6; /* สีน้ำเงินสำหรับข้อความวันนี้ */
+    font-weight: 600; /* ตัวหนา */
+}
+
+/* วันที่ที่ถูกปิดใช้งาน */
+.react-datepicker__day--disabled {
+    color: #a0aec0; /* สีเทาอ่อนสำหรับวันที่ถูกปิดใช้งาน */
+    cursor: not-allowed; /* เคอร์เซอร์ไม่อนุญาต */
+}
+
+/* ปุ่มนำทาง (เดือนก่อนหน้า/ถัดไป) */
+.react-datepicker__navigation {
+    top: 1rem; /* ปรับตำแหน่ง */
+}
+
+.react-datepicker__navigation--previous {
+    left: 1rem;
+}
+
+.react-datepicker__navigation--next {
+    right: 1rem;
+}
+
+.react-datepicker__navigation-icon::before {
+    border-color: white; /* สีลูกศรขาว */
+    border-width: 2px 2px 0 0; /* ความหนาของลูกศร */
+}
+
+/* ดรอปดาวน์เดือนและปี */
+.react-datepicker__month-select,
+.react-datepicker__year-select {
+    background-color: #4f46e5; /* สีม่วงน้ำเงินเข้มสำหรับดรอปดาวน์ */
+    color: white; /* สีข้อความขาว */
+    border: none; /* ไม่มีขอบ */
+    border-radius: 0.25rem; /* มุมโค้งมน */
+    padding: 0.25rem 0.5rem; /* ระยะห่างภายใน */
+    font-size: 0.875rem; /* ขนาดตัวอักษร */
+    margin: 0 0.25rem; /* ระยะห่างรอบๆ */
+}
+
+/* คอนเทนเนอร์ดรอปดาวน์เดือนและปีในส่วนหัว */
+.react-datepicker__month-year-select-container {
+    display: flex; /* ใช้ flexbox */
+    justify-content: center; /* จัดกึ่งกลาง */
+    align-items: center; /* จัดแนวตั้งกึ่งกลาง */
+    margin-bottom: 0.5rem; /* ระยะห่างด้านล่าง */
 }
