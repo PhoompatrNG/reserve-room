@@ -186,7 +186,11 @@ const ShowTimeline = () => {
                                                     title={reservationStatus} // แสดงสถานะการจอง
                                                     aria-label={`Room ${room}, ${hour}: ${reservationStatus}`} // คำอธิบายสำหรับผู้ใช้
                                                 >
-                                                    {reservationStatus} {/* แสดงสถานะการจอง */}
+                                                    <div className="scroll-text-container">
+                                                        <div className="scroll-text">
+                                                            {reservationStatus} {/* แสดงสถานะการจอง */}
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             );
                                         }
