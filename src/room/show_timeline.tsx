@@ -1,5 +1,5 @@
 // นำเข้า React และ useState จาก React
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 // นำเข้า DatePicker จาก react-datepicker
 import DatePicker from "react-datepicker";
 // นำเข้า CSS สำหรับ DatePicker
@@ -21,42 +21,62 @@ interface Reservation {
 // สร้าง Component ShowTimeline
 const ShowTimeline = () => {
     const normalizeTime = useNormalizeTime();
+    const { data: initialReservations, refetch: refetchReservations } = useFetchData('reserve');
+    const { data: roomsData, refetch: refetchRoomsData } = useFetchData('room'); // Added refetch for roomsData as well for consistency, though not strictly necessary for the current issue
 
-    const reservationsData = useFetchData('reserve') as unknown as Array<{
-        Room: string;
-        Date: string;
-        "Start Time": string;
-        "End Time": string;
-        Title: string;
-    }>;
+    const [reservations, setReservations] = useState<Record<string, Array<Reservation>>>({});
 
-    const reservations = reservationsData.reduce(
-        (acc: Record<string, Array<Reservation>>, item) => {
-            const {
-                Room,
-                Date: date,
-                ["Start Time"]: startTime,
-                ["End Time"]: endTime,
-                Title: title
-            } = item;
+    useEffect(() => {
+        const processReservations = (data: any) => {
+            if (!data) return; // Add a guard clause for undefined data
+            const updatedReservations = (data as Array<{
+                Room: string;
+                Date: string;
+                "Start Time": string;
+                "End Time": string;
+                Title: string;
+            }>).reduce(
+                (acc: Record<string, Array<Reservation>>, item) => {
+                    const {
+                        Room,
+                        Date: date,
+                        ["Start Time"]: startTime,
+                        ["End Time"]: endTime,
+                        Title: title
+                    } = item;
 
-            if (!acc[Room]) acc[Room] = [];
+                    if (!acc[Room]) acc[Room] = [];
 
-            acc[Room].push({
-                startTime: normalizeTime(startTime),
-                endTime: normalizeTime(endTime),
-                title: title,
-                date: date
-            });
+                    acc[Room].push({
+                        startTime: normalizeTime(startTime),
+                        endTime: normalizeTime(endTime),
+                        title: title,
+                        date: date
+                    });
 
-            return acc;
-        },
-        {}
-    );
+                    return acc;
+                },
+                {}
+            );
+            setReservations(updatedReservations);
+        };
+
+        if (initialReservations) {
+            processReservations(initialReservations);
+        }
+
+        const interval = setInterval(() => {
+            refetchReservations();
+            console.log("Refetching reservations..."); // Log to indicate refetching
+
+        }, 600000); // Fetch every 10 minutes
+
+        return () => clearInterval(interval); // Cleanup interval on unmount
+    }, [initialReservations, normalizeTime, refetchReservations]); // Removed refetchReservations from dependency array as it's stable now due to useCallback in useFetchData
+
 
     // แปลงข้อมูลจาก API
-    const roomsData = useFetchData('room');
-    const rooms = roomsData.map((item: any) => item.name);
+    const rooms = roomsData ? roomsData.map((item: any) => item.name) : []; // Added a check for roomsData before mapping
 
     // สร้างช่วงเวลาในแต่ละวัน
     const hours = Array.from({ length: 48 }, (_, i) => {
