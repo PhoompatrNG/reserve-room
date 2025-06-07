@@ -143,61 +143,72 @@ const ShowTimeline = () => {
                         return (
                             <React.Fragment key={roomIndex}> {/* แสดงห้องประชุม */}
                                 <div className="room-name">{room}</div> {/* ชื่อห้อง */}
-                                {hours.map((hour, hourIndex) => {
-                                    const isCurrent = isToday && hour === currentHour; // ตรวจสอบว่าเป็นเวลาปัจจุบันหรือไม่
+                                {roomReservations.length === 0 ? (
+                                    <div
+                                        className="grid-cell available-all-day"
+                                        style={{ gridColumnEnd: `span ${hours.length}` }}
+                                        title={`Room ${room} is available all day`}
+                                        aria-label={`Room ${room} is available all day`}
+                                    >
+                                        Available all day
+                                    </div>
+                                ) : (
+                                    hours.map((hour, hourIndex) => {
+                                        const isCurrent = isToday && hour === currentHour; // ตรวจสอบว่าเป็นเวลาปัจจุบันหรือไม่
 
-                                    // ตรวจสอบว่ามีการจองเริ่มต้นที่เวลานี้หรือไม่
-                                    const reservationStarting = roomReservations.find(
-                                        (res) => res.startTime === hour
-                                    );
+                                        // ตรวจสอบว่ามีการจองเริ่มต้นที่เวลานี้หรือไม่
+                                        const reservationStarting = roomReservations.find(
+                                            (res) => res.startTime === hour
+                                        );
 
-                                    if (reservationStarting) {
-                                        // คำนวณจำนวนเซลล์ที่ต้องรวม
-                                        let mergeCount = 0;
-                                        for (let i = hourIndex; i < hours.length; i++) {
-                                            if (
-                                                hours[i] >= reservationStarting.startTime &&
-                                                hours[i] < reservationStarting.endTime
-                                            ) {
-                                                mergeCount++;
+                                        if (reservationStarting) {
+                                            // คำนวณจำนวนเซลล์ที่ต้องรวม
+                                            let mergeCount = 0;
+                                            for (let i = hourIndex; i < hours.length; i++) {
+                                                if (
+                                                    hours[i] >= reservationStarting.startTime &&
+                                                    hours[i] < reservationStarting.endTime
+                                                ) {
+                                                    mergeCount++;
+                                                }
                                             }
+
+                                            const reservationStatus = `${reservationStarting.startTime} - ${reservationStarting.endTime}: ${reservationStarting.title}`; // สถานะการจอง
+
+                                            return (
+                                                <div
+                                                    key={`${roomIndex}-${hourIndex}`}
+                                                    className={`grid-cell ${isCurrent ? "current" : "reserved"}`} // กำหนดคลาสของเซลล์
+                                                    style={{
+                                                        backgroundColor: "#FFCCCC", // สีพื้นหลัง
+                                                        gridColumnEnd: `span ${mergeCount}` // รวมเซลล์ตามจำนวน
+                                                    }}
+                                                    title={reservationStatus} // แสดงสถานะการจอง
+                                                    aria-label={`Room ${room}, ${hour}: ${reservationStatus}`} // คำอธิบายสำหรับผู้ใช้
+                                                >
+                                                    {reservationStatus} {/* แสดงสถานะการจอง */}
+                                                </div>
+                                            );
                                         }
 
-                                        const reservationStatus = `${reservationStarting.startTime} - ${reservationStarting.endTime}: ${reservationStarting.title}`; // สถานะการจอง
+                                        // ตรวจสอบว่าเวลานี้อยู่ในช่วงการจองหรือไม่
+                                        const isInsideReservation = roomReservations.some(
+                                            (res) => res.startTime < hour && hour < res.endTime
+                                        );
 
+                                        if (isInsideReservation) {
+                                            return null; // ไม่แสดงเซลล์
+                                        }
+
+                                        // เซลล์ว่างเปล่า
                                         return (
                                             <div
                                                 key={`${roomIndex}-${hourIndex}`}
-                                                className={`grid-cell ${isCurrent ? "current" : "reserved"}`} // กำหนดคลาสของเซลล์
-                                                style={{
-                                                    backgroundColor: "#FFCCCC", // สีพื้นหลัง
-                                                    gridColumnEnd: `span ${mergeCount}` // รวมเซลล์ตามจำนวน
-                                                }}
-                                                title={reservationStatus} // แสดงสถานะการจอง
-                                                aria-label={`Room ${room}, ${hour}: ${reservationStatus}`} // คำอธิบายสำหรับผู้ใช้
-                                            >
-                                                {reservationStatus} {/* แสดงสถานะการจอง */}
-                                            </div>
+                                                className={`grid-cell ${isCurrent ? "current" : ""}`} // กำหนดคลาสของเซลล์
+                                            ></div>
                                         );
-                                    }
-
-                                    // ตรวจสอบว่าเวลานี้อยู่ในช่วงการจองหรือไม่
-                                    const isInsideReservation = roomReservations.some(
-                                        (res) => res.startTime < hour && hour < res.endTime
-                                    );
-
-                                    if (isInsideReservation) {
-                                        return null; // ไม่แสดงเซลล์
-                                    }
-
-                                    // เซลล์ว่างเปล่า
-                                    return (
-                                        <div
-                                            key={`${roomIndex}-${hourIndex}`}
-                                            className={`grid-cell ${isCurrent ? "current" : ""}`} // กำหนดคลาสของเซลล์
-                                        ></div>
-                                    );
-                                })}
+                                    })
+                                )}
                             </React.Fragment>
                         );
                     })}
