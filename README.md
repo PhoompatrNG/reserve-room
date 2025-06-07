@@ -47,9 +47,8 @@ yarn install
 สร้างไฟล์ `.env` ในโฟลเดอร์หลักของโครงการและเพิ่มรายละเอียดดังนี้:
 
 ```env
-VITE_GOOGLE_API_KEY=<Google API Key ของคุณ>
-VITE_GOOGLE_SHEET_ID=<Google Sheet ID ของคุณ>
-N8N_WORKFLOW_URL=<URL ของ Workflow ใน n8n>
+VITE_REACT_APP_API_URL=
+
 ```
 
 ### การเริ่มต้นเซิร์ฟเวอร์สำหรับการพัฒนา
@@ -82,15 +81,12 @@ yarn build
 
 1. **ตั้งค่า n8n**: อ่านคู่มือการตั้งค่าจาก [เอกสาร n8n](https://docs.n8n.io/)
 2. **สร้าง Workflow**: ใช้ UI ของ n8n เพื่อสร้าง Workflow ที่เชื่อมต่อกับ Google Sheets, ระบบอีเมล หรือบริการอื่น ๆ
-3. **เชื่อม Workflow**: ใช้ `N8N_WORKFLOW_URL` ในไฟล์ `.env` เพื่อเชื่อมต่อแอปพลิเคชันกับ Workflow ที่สร้าง
 
 ## การใช้งาน Google Sheets API
 
 โครงการนี้ใช้ Google Sheets API ในการจัดการข้อมูล เช่น การจองห้องพัก การตรวจสอบความพร้อมใช้งาน หรือข้อมูลผู้ใช้
 
 1. **เปิดใช้งาน API**: ไปที่ [Google Cloud Console](https://console.cloud.google.com/) และเปิดใช้งาน Sheets API
-2. **สร้าง API Key**: สร้าง API Key และเพิ่มลงในไฟล์ `.env`
-3. **กำหนด Sheet ID**: ได้รับ Sheet ID จาก URL ของ Google Sheet และเพิ่มลงในไฟล์ `.env`
 
 ## โครงสร้างโครงการ
 
