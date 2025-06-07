@@ -2,12 +2,13 @@
 
 ![โลโก้ของโครงการ](https://via.placeholder.com/150?text=Reserve+Room)
 
-โครงการนี้พัฒนาด้วย **React** และ **Vite** รวมถึงการผสานการทำงานกับ **n8n** เพื่อการจัดการ Workflow และ **Google Sheets API** สำหรับการจัดการข้อมูล
+โครงการนี้พัฒนาด้วย **React**, **Vite**, และ **TypeScript** รวมถึงการผสานการทำงานกับ **n8n** เพื่อการจัดการ Workflow และ **Google Sheets API** สำหรับการจัดการข้อมูล
 
 ## คุณสมบัติเด่น
 
 - **React**: ไลบรารี JavaScript ที่ทรงพลังสำหรับสร้างอินเทอร์เฟซผู้ใช้
 - **Vite**: เครื่องมือพัฒนาและสร้างแอปพลิเคชันที่รวดเร็ว
+- **TypeScript**: ภาษาโปรแกรมที่เพิ่มการตรวจสอบชนิดข้อมูล (static typing) ให้กับ JavaScript ช่วยลดข้อผิดพลาดและเพิ่มความสามารถในการบำรุงรักษาโค้ด
 - **n8n Integration**: ระบบ Workflow อัตโนมัติที่สามารถเชื่อมต่อกับบริการต่าง ๆ
 - **Google Sheets API**: จัดการข้อมูล เช่น การดึงข้อมูล การอัปเดต และจัดการข้อมูลโดยตรงจาก Google Sheets
 
@@ -93,33 +94,26 @@ yarn build
 
 ## โครงสร้างโครงการ
 
-```
+```plaintext
 reserve-room/
-├── public/              # ไฟล์ Static
-├── src/                 # โค้ดต้นฉบับ
-│   ├── components/      # React Components
-│   ├── pages/           # React Pages
-│   ├── services/        # API Services (Google Sheets API, n8n)
-│   ├── styles/          # ไฟล์ CSS
-│   └── utils/           # ฟังก์ชัน Utility
-├── .env                 # ตัวแปร Environment
-├── package.json         # Metadata ของโครงการ
-├── vite.config.ts       # การตั้งค่า Vite
-└── README.md            # เอกสารโครงการ
+├── public/              # ไฟล์ Static (เช่น vite.svg)
+├── src/                 # โค้ดต้นฉบับของโปรเจกต์
+│   ├── assets/          # ไฟล์ Assets (เช่น react.svg)
+│   ├── components/      # React Components ทั่วไป (เช่น Footer.tsx, Header.tsx)
+│   ├── css/             # ไฟล์ CSS สำหรับสไตล์ (เช่น App.css, date_picker.css, header.css, index.css, show_timeline.css, Tailwind.css)
+│   ├── hooks/           # Custom React Hooks (เช่น useFetchDatas.ts, useNormalizeTime.ts)
+│   ├── room/            # Components และ Pages ที่เกี่ยวข้องกับการจองห้อง (เช่น add_room.tsx, home.tsx, reserve_room.tsx, show_timeline.tsx)
+│   ├── App.tsx          # Component หลักของแอปพลิเคชัน
+│   ├── main.tsx         # จุดเริ่มต้นหลักของแอปพลิเคชัน (Entry point)
+│   └── vite-env.d.ts    # ไฟล์ Type definitions สำหรับ Vite environment
+├── .env                 # ไฟล์สำหรับเก็บ Environment variables (ผู้ใช้ต้องสร้างเอง)
+├── eslint.config.js     # ไฟล์ตั้งค่า ESLint
+├── index.html           # ไฟล์ HTML หลัก
+├── package.json         # Metadata ของโปรเจกต์และ Dependencies
+├── README.md            # เอกสารของโปรเจกต์ (ไฟล์นี้)
+├── tsconfig.app.json    # ไฟล์ตั้งค่า TypeScript สำหรับแอปพลิเคชัน
+├── tsconfig.json        # ไฟล์ตั้งค่า TypeScript หลัก
+├── tsconfig.node.json   # ไฟล์ตั้งค่า TypeScript สำหรับ Node.js environment (เช่น Vite config)
+├── vite.config.ts       # ไฟล์ตั้งค่า Vite
+└── z/                   # โฟลเดอร์อื่นๆ (เช่น ReverveRoom.json อาจเป็นข้อมูลตัวอย่างหรือไฟล์ชั่วคราว)
 ```
-
-## การมีส่วนร่วม
-
-เรายินดีต้อนรับการมีส่วนร่วมในโครงการนี้ โปรดทำตามขั้นตอนดังนี้:
-
-1. Fork รีโพซิทอรี
-2. สร้าง Branch ใหม่สำหรับฟีเจอร์หรือการแก้ไขของคุณ
-3. ส่ง Pull Request พร้อมรายละเอียดการเปลี่ยนแปลงของคุณ
-
-## ใบอนุญาต
-
-โครงการนี้ได้รับอนุญาตภายใต้ MIT License
-
-## ติดต่อ
-
-สำหรับคำถามหรือการสนับสนุน กรุณาติดต่อ [PhoompatrNG](https://github.com/PhoompatrNG)
