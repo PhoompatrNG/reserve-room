@@ -5,7 +5,8 @@ const useFetchData = (gets: string): { data: string[]; refetch: () => Promise<vo
 
     const fetchData = useCallback(async () => {
         try {
-            const res = await fetch(`http://172.31.165.13:5678/webhook/10d58f0e-067b-4449-b95f-9d3c299b942a?gets=${gets}`);
+            const apiUrl = import.meta.env.VITE_REACT_APP_API_URL;
+            const res = await fetch(`${apiUrl}?gets=${gets}`);
             const data = await res.json();
             setResult(data);
         } catch (err) {
